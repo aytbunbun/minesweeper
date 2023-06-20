@@ -125,6 +125,13 @@ const Home = () => {
         if (userInputs[l][m] === 1) {
           if (bombMap[l][m] === 1) {
             board[l][m] = 11;
+            for (let i = 0; i < 9; i++) {
+              for (let j = 0; j < 9; j++) {
+                if (bombMap[i][j] === 1) {
+                  board[i][j] = 11;
+                }
+              }
+            }
             endGameByBomb();
             continue;
           }
@@ -145,13 +152,14 @@ const Home = () => {
             if (bombMap[tempX][tempY] === 1) {
               tempCount++;
             }
-            board[l][m] = tempCount;
           }
+          board[l][m] = tempCount;
         }
       }
     }
     endGameByRefuse();
   };
+
   const reset = () => {
     setUserInputs([
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
