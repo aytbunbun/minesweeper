@@ -248,7 +248,6 @@ const Home = () => {
     }
     if (userInputs[y][x] === 1) {
       openNearTile(y, x);
-
       return;
     }
     if (!isStarted) {
