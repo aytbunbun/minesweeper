@@ -13,7 +13,7 @@ const Home = () => {
     [0, 1],
     [-1, 1],
   ];
-  
+
   const [userInputs, setUserInputs] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -33,7 +33,7 @@ const Home = () => {
   const bombCount = 10;
   // 0 => ボム無し
   // 1 => ボム有り
-  
+
   const [bombMap, setBombMap] = useState([
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -45,7 +45,7 @@ const Home = () => {
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0, 0, 0, 0, 0, 0, 0, 0, 0],
   ]);
-  
+
   const newUserInputs: number[][] = JSON.parse(JSON.stringify(userInputs));
   let gameState: 0 | 1 | 2 = 0;
   // 0 => ゲーム中
@@ -60,7 +60,7 @@ const Home = () => {
       }
     }
   }
-  
+
   let isStarted: boolean;
   if (newUserInputs.some((row: number[]) => row.includes(1))) {
     isStarted = true;
@@ -76,9 +76,9 @@ const Home = () => {
   // 9 => 石＋はてな
   // 10 => 石＋旗
   // 11 => ポムセル
-  
+
   const setBombRandom = (x: number, y: number) => {
-  //ランダムにボムを配置する関数//
+    //ランダムにボムを配置する関数//
     const numA = Math.floor(9 * Math.random());
     const numB = Math.floor(9 * Math.random());
     if (numA === x && numB === y) {
@@ -90,9 +90,9 @@ const Home = () => {
       setBombRandom(x, y);
     }
   };
-  
+
   const addZeroAroundZero = (x: number, y: number) => {
-  //ゼロセルの周囲のセルを再帰的に開く関数//
+    //ゼロセルの周囲のセルを再帰的に開く関数//
     const checkAround = (x: number, y: number) => {
       if (board[x][y] === 0) {
         for (let i = 0; i < directions.length; i++) {
@@ -119,21 +119,21 @@ const Home = () => {
 
     setUserInputs([...newInputs]);
   };
-  
+
   const endGameByRefuse = () => {
-  //ユーザーがすべての非ボムセルを開いたときにゲームを終了する関数//
+    //ユーザーがすべての非ボムセルを開いたときにゲームを終了する関数//
     if (openedCount === 81 - bombCount) {
       gameState = 1;
     }
   };
-  
+
   const endGameByBomb = () => {
-  //ユーザーがボムを開いたときにゲームを終了する関数//
+    //ユーザーがボムを開いたときにゲームを終了する関数//
     gameState = 2;
   };
-  
+
   const reloadBoard = () => {
-  //userInputsとboardを更新し、ゲームの状態を再計算する関数//
+    //userInputsとboardを更新し、ゲームの状態を再計算する関数//
     for (let l = 0; l < 9; l++) {
       for (let m = 0; m < 9; m++) {
         if (userInputs[l][m] === 1) {
@@ -175,7 +175,7 @@ const Home = () => {
   };
 
   const reset = () => {
-  //ゲームをリセットする関数//
+    //ゲームをリセットする関数//
     setUserInputs([
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -200,9 +200,9 @@ const Home = () => {
     ]);
     gameState = 0;
   };
-  
+
   const openNearTile = (x: number, y: number) => {
-  //周囲のセルを開く関数//
+    //周囲のセルを開く関数//
     const tempInputs: number[][] = Array.from({ length: 9 }, () => Array(9).fill(0));
     const nearBombCount = board[x][y];
     let nearFlagCount = 0;
@@ -241,7 +241,7 @@ const Home = () => {
   };
 
   const clickCell = (x: number, y: number, event: MouseEvent<HTMLDivElement>) => {
-  //セルを左クリックしたときの処理を行う関数//
+    //セルを左クリックしたときの処理を行う関数//
     event.preventDefault();
     if (userInputs[y][x] === 9 || userInputs[y][x] === 10 || gameState === 1 || gameState === 2) {
       return;
@@ -263,9 +263,9 @@ const Home = () => {
       addZeroAroundZero(y, x);
     }
   };
-  
+
   const rightClickCell = (x: number, y: number, event: MouseEvent<HTMLDivElement>) => {
-  //セルを右クリックしたときの処理を行う関数//
+    //セルを右クリックしたときの処理を行う関数//
     event.preventDefault();
     if (gameState === 1 || gameState === 2) {
       return;
